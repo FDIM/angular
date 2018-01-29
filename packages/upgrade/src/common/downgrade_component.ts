@@ -55,6 +55,8 @@ export function downgradeComponent(info: {
   component: Type<any>;
   /** @experimental */
   propagateDigest?: boolean;
+  /** @experimental */
+  needsNgZone?: boolean;
   /** @deprecated since v4. This parameter is no longer used */
   inputs?: string[];
   /** @deprecated since v4. This parameter is no longer used */
@@ -72,7 +74,7 @@ export function downgradeComponent(info: {
     // (except if explicitly escaped, in which case we shouldn't force it back in).
     // When using `downgradeModule()` though, we need to ensure such callbacks are run inside the
     // Angular zone.
-    let needsNgZone = false;
+    let needsNgZone = !!info.needsNgZone;
     let wrapCallback = <T>(cb: () => T) => cb;
     let ngZone: NgZone;
 
